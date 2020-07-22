@@ -66,6 +66,12 @@ public class MultiAdButton : MonoBehaviour, IUnityAdsListener
         }
     }
 
+    IEnumerator DelayAdShow()
+    {
+        yield return new WaitForSeconds(3);
+        Advertisement.Show(_placementId);
+    }
+
     IEnumerator ShowAdWhenReady()
     {
         bool isTimedOut = false;
@@ -99,6 +105,11 @@ public class MultiAdButton : MonoBehaviour, IUnityAdsListener
         {
             _onAdsCompleted?.Invoke();
             DisableButton();
+            return;
+        }
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            StartCoroutine(DelayAdShow());
             return;
         }
         TryShowAd();

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Vector2 startingPosition;
     public Movement movement;
     public GameObject rewardPanel;
+    public GameObject gameOverPanel;
 
     void Start()
     {
@@ -42,9 +43,11 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver()
     {
+        gameOverPanel.SetActive(true);
         heart.sprite = emptyHeart;
         movement.speed = 0;
         movement.gameObject.SetActive(false);
+        adButton.gameObject.SetActive(true);
         adButton.EnableButton();
     }
 
@@ -54,5 +57,6 @@ public class GameManager : MonoBehaviour
         movement.speed = 0;
         movement.gameObject.SetActive(true);
         startButton.SetActive(true);
+        gameOverPanel.SetActive(false);
     }
 }
